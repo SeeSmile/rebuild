@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--标题背景-->
+    <color name="bg_title">#3D4859</color>
+    <color name="orange">#ff8307</color>
+    <!--普通文字-->
+    <color name="text_normal">#000000</color>
+    <!--细线条-->
+    <color name="line_thin">#DADADA</color>
+    <!--注册按钮-->
+    <color name="btn_register">#2B6FA2</color>
+    <!--登陆按钮-->
+    <color name="btn_login">#DF8527</color>
+    <!--修改密码提交-->
+    <color name="btn_commit_press">#D76E07</color>
+    <color name="btn_commit_normal">#FF8208</color>
+    <!--获取验证码-->
+    <color name="btn_getcode_normal">#E7E7E7</color>
+    <color name="btn_getcode_press">#AEAEAE</color>
+</resources>

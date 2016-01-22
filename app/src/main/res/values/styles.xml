@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bg_title</item>
+        <item name="colorPrimaryDark">@color/bg_title</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--细线条-->
+    <style name="line_thin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1.5px</item>
+        <item name="android:background">@color/line_thin</item>
+    </style>
+
+    <!--登陆界面按钮-->
+    <style name="login_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!--修改秘密界面文字-->
+    <style name="AlterPwdTv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--修改密码界面输入框-->
+    <style name="AlterPwdEt">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">#BDBDBD</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+</resources>

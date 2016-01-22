@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="14.5"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/line_thin"
+            android:layout_marginTop="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                style="@style/AlterPwdTv"
+                android:text="手机号：" />
+
+            <EditText
+                android:inputType="number"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:id="@+id/et_phone"
+                android:hint="请输入手机号"
+                style="@style/AlterPwdEt" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/line_thin"
+            android:layout_marginLeft="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                style="@style/AlterPwdTv"
+                android:text="验证码：" />
+
+            <EditText
+                android:id="@+id/et_code"
+                style="@style/AlterPwdEt"
+                android:hint="请输入验证码" />
+
+            <TextView
+                android:id="@+id/tv_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="12dp"
+                android:padding="5dp"
+                android:background="@drawable/selector_getcode"
+                android:gravity="center"
+                android:text="获取验证码" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/line_thin"
+            android:layout_marginLeft="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                style="@style/AlterPwdTv"
+                android:text="新密码：" />
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/AlterPwdEt"
+                android:hint="请输入新密码"
+                />
+        </LinearLayout>
+
+        <TextView
+            style="@style/line_thin"
+            android:layout_marginLeft="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                style="@style/AlterPwdTv"
+                android:text="再确认：" />
+
+            <EditText
+                android:id="@+id/et_re_password"
+                android:hint="请再次输入新密码"
+                style="@style/AlterPwdEt" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/line_thin"
+            android:layout_marginLeft="10dp" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_btn_commit"
+            android:text="提交"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+</LinearLayout>
