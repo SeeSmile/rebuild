@@ -2,6 +2,7 @@ package com.a360ads.eshare.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,11 +12,17 @@ import android.widget.TextView;
 import com.a360ads.eshare.EshareApplication;
 import com.a360ads.eshare.R;
 import com.a360ads.eshare.base.BaseActivity;
+import com.a360ads.eshare.base.BaseEntity;
 import com.a360ads.eshare.data.Constant;
 import com.a360ads.eshare.entitys.ConfigEntity;
+import com.a360ads.eshare.entitys.LoginEntity;
 import com.a360ads.eshare.interfaces.ApiListener;
 import com.a360ads.eshare.utils.EToastUtil;
+import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -62,9 +69,10 @@ public class LoginActivity extends BaseActivity {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                login();
                 break;
             case R.id.btn_register:
-                dismissDialog();
+                goActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget:
                 goActivity(AlterPwdActivity.class);
@@ -135,6 +143,33 @@ public class LoginActivity extends BaseActivity {
                 EToastUtil.show(LoginActivity.this, "加载失败");
             }
         });
+    }
+
+    private void login() {
+        String phone = et_phone.getText().toString();
+        String password = et_passwd.getText().toString();
+        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password)) {
+            toast("请输入完整登录信息");
+        } else {
+            showDialog("登陆中...");
+            RequestParams params = new RequestParams();
+            params.put("on_phone", phone);
+            params.put("on_pwd", password);
+            EwebUtil.getInstance().doSafePost(Constant.URL_USER_LOGIN, params, new ApiListener.JsonRequest() {
+                @Override
+                public void onJsonLoad(JSONObject json) {
+                    Elog.i("onJsonload:\n" + json.toString());
+                    LoginEntity entity = new LoginEntity(json.toString());
+                    dismissDialog();
+                }
+
+                @Override
+                public void onJsonFail() {
+                    Elog.i("onJsonFail()");
+                    dismissDialog();
+                }
+            });
+        }
     }
 
 }

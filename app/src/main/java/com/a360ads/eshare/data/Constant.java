@@ -29,6 +29,11 @@ public class Constant {
     public static final String URL_JUDGE_PHONE = SERVER_ONE + "UserIsPhone";
 
     /**
+     * 个人端用户登录
+     */
+    public static final String URL_USER_LOGIN = SERVER_ONE + "UserLogin";
+
+    /**
      * 加密key
      */
     public static final String DES_KEY = "ooCZc5DIoVpUrsJ7JKiJFKb5OZmLw2Ob";

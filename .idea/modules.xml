@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eshare_rebuild.iml" filepath="$PROJECT_DIR$/eshare_rebuild.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rebuild.iml" filepath="$PROJECT_DIR$/rebuild.iml" />
     </modules>
   </component>
 </project>

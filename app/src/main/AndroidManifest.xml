@@ -44,6 +44,10 @@
         <!--修改密码-->
         <activity android:name=".activitys.AlterPwdActivity"
             android:screenOrientation="portrait"/>
+
+        <!--个人注册-->
+        <activity android:name=".activitys.RegisterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

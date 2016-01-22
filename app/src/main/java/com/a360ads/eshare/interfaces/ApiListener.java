@@ -29,9 +29,8 @@ public interface ApiListener {
         public void onFail() {
             onJsonFail();
         }
-
-        public abstract void onJsonFail();
         public abstract void onJsonLoad(JSONObject json);
+        public abstract void onJsonFail();
     }
 
 }
