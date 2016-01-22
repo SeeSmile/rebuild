@@ -158,8 +158,8 @@ public class LoginActivity extends BaseActivity {
             EwebUtil.getInstance().doSafePost(Constant.URL_USER_LOGIN, params, new ApiListener.JsonRequest() {
                 @Override
                 public void onJsonLoad(JSONObject json) {
-                    Elog.i("onJsonload:\n" + json.toString());
-                    LoginEntity entity = new LoginEntity(json.toString());
+                    LoginEntity entity = LoginEntity.parseEntity(json.toString());
+                    entity.judgeLoginResult(LoginActivity.this);
                     dismissDialog();
                 }
 
@@ -171,5 +171,6 @@ public class LoginActivity extends BaseActivity {
             });
         }
     }
+
 
 }

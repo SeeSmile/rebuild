@@ -14,18 +14,7 @@ import java.util.Map;
  */
 public abstract class BaseEntity {
 
-    public String data;
     public String code;
     public String msg;
 
-    public BaseEntity() {
-        Elog.i("baseEntity()");
-        Gson gson = new Gson();
-        BaseEntity entity = gson.fromJson(getJson(), BaseEntity.class);
-        this.data = entity.data;
-        this.code = entity.code;
-        this.msg = entity.msg;
-    }
-
-    public abstract String getJson();
 }
