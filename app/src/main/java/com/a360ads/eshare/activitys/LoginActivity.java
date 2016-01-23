@@ -20,6 +20,7 @@ import com.a360ads.eshare.interfaces.ApiListener;
 import com.a360ads.eshare.utils.EToastUtil;
 import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
+import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
@@ -158,19 +159,19 @@ public class LoginActivity extends BaseActivity {
             EwebUtil.getInstance().doSafePost(Constant.URL_USER_LOGIN, params, new ApiListener.JsonRequest() {
                 @Override
                 public void onJsonLoad(JSONObject json) {
-                    LoginEntity entity = LoginEntity.parseEntity(json.toString());
-                    entity.judgeLoginResult(LoginActivity.this);
                     dismissDialog();
+                    LoginEntity entity = LoginEntity.parseEntity(json);
+                    if(entity.judgeLoginResult(LoginActivity.this)) {
+                        goActivity(MainActivity.class);
+                    }
                 }
 
                 @Override
                 public void onJsonFail() {
-                    Elog.i("onJsonFail()");
                     dismissDialog();
                 }
             });
         }
     }
-
 
 }

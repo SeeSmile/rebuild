@@ -31,6 +31,7 @@
                 android:background="@mipmap/login_account" />
 
             <EditText
+                android:text="15208358151"
                 android:inputType="number"
                 android:maxLength="11"
                 android:ems="1"
@@ -66,6 +67,7 @@
                 android:background="@mipmap/person_password" />
 
             <EditText
+                android:text="adwlf8"
                 android:id="@+id/et_passwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
