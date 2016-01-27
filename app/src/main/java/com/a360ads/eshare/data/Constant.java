@@ -12,9 +12,9 @@ public class Constant {
      */
     public static final String SERVER_URL_CONFIG = "http://t.360netnews.com/config.php";
     //服务器配置
-    public static final String SERVER_DEBUG = "";
-    public static final String SERVER_OFFICIAL = "";
-    public static final String SERVER_CURRENT = SERVER_DEBUG;
+    public static final String SERVER_TWO_DEBUG = "http://192.168.0.111:9012/api.php/Cmd/";
+    public static final String SERVER_TWO_OFFICIAL = "http://www.xiangexia.com/api.php/Cmd/";
+    public static final String SERVER_TWO = SERVER_TWO_DEBUG;
 
     /**
      * 服务器连接一
@@ -33,8 +33,15 @@ public class Constant {
      */
     public static final String URL_USER_LOGIN = SERVER_ONE + "UserLogin";
 
+    public static final String URL_USER_BALANCE = SERVER_TWO + "getUserBalance";
+
     /**
      * 加密key
      */
     public static final String DES_KEY = "ooCZc5DIoVpUrsJ7JKiJFKb5OZmLw2Ob";
+
+    /**
+     * 微信ID
+     */
+    public static final String APP_ID = "wx2d5039f859b5a469";
 }

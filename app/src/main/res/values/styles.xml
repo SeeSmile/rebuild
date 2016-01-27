@@ -24,7 +24,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!--修改秘密界面文字-->
+    <!--修改密码界面文字-->
     <style name="AlterPwdTv">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -43,6 +43,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
-
 
 </resources>

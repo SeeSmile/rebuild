@@ -2,22 +2,16 @@ package com.a360ads.eshare.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.JsonToken;
-
 import com.a360ads.eshare.EshareApplication;
 import com.a360ads.eshare.interfaces.ApiListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.okhttp.Request;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -54,18 +48,25 @@ public class EwebUtil {
         }
     }
 
-    public void doGet(String url, final ApiListener listener) {
-        mClient.get(url, new AsyncHttpResponseHandler() {
+    public void doGet(String url, final RequestParams params,final ApiListener listener) {
+        mClient.get(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if(null == responseBody) {
+                if (null == responseBody) {
                     listener.onFail();
                 } else {
                     String info = new String(responseBody);
-                    if(TextUtils.isEmpty(info)) {
+                    if (TextUtils.isEmpty(info)) {
                         listener.onFail();
                     } else {
-                        listener.onSuccess(info);
+                        if (params == null) {
+                            Elog.i("未加密:" + info);
+                            listener.onSuccess(info);
+                        } else {
+                            Elog.i("加密:" + info);
+                            listener.onSuccess(desToText(info));
+                        }
+
                     }
                 }
             }
@@ -78,16 +79,25 @@ public class EwebUtil {
         });
     }
 
-    public void doSafeGet(String url, RequestParams params, ApiListener listener) {
-
+    public void doSafeGet(String url, Map<String, String> map_params, ApiListener listener) {
+        Map<String, String> map = new HashMap<>();
+        map.putAll(map_params);
+        if(EshareApplication.getInstance().getmPublicParams() != null) {
+            map.putAll(EshareApplication.getInstance().getmPublicParams());
+        }
+        mParams = new RequestParams();
+        mParams = jsonToParams( new JSONObject(map));
+        doGet(url, mParams, listener);
     }
 
-    public void doSafePost(String url, RequestParams params, ApiListener listener) {
+    public void doSafePost(String url, Map<String, String> map_params, ApiListener listener) {
         Map<String, String> map = new HashMap<>();
-        JSONObject json = EshareApplication.getInstance().getmPublicParams().toJsonObj();
-        map.putAll(jsonToMap(json));
-        map.putAll(jsonToMap(paramToJson(params)));
-        json = new JSONObject(map);
+        map.putAll(map_params);
+        //是否存在公共参数
+        if(EshareApplication.getInstance().getmPublicParams() != null) {
+            map.putAll(EshareApplication.getInstance().getmPublicParams());
+        }
+        JSONObject json = new JSONObject(map);
         mParams = new RequestParams();
         mParams.put(DATA, textToDes(json.toString()));
         doPost(url, mParams, listener);
@@ -124,6 +134,9 @@ public class EwebUtil {
      * @return
      */
     private JSONObject paramToJson(RequestParams params) {
+        if(params == null) {
+            return new JSONObject();
+        }
         int pst;
         String key;
         String value;
@@ -150,16 +163,16 @@ public class EwebUtil {
         return DESUtils.ebotongDecrypto(text);
     }
 
-    private HashMap<String, String> jsonToMap(JSONObject jsonObject) {
-        HashMap<String, String> data = new HashMap<>();
+    private RequestParams jsonToParams(JSONObject jsonObject) {
+        RequestParams params = new RequestParams();
         Iterator it = jsonObject.keys();
         // 遍历jsonObject数据，添加到Map对象
         while (it.hasNext())
         {
             String key = String.valueOf(it.next());
             String value = jsonObject.optString(key);
-            data.put(key, value);
+            params.put(key, value);
         }
-        return data;
+        return params;
     }
 }

@@ -3,12 +3,18 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <include
+        layout="@layout/layout_toolbar"
+        />
     <FrameLayout
         android:layout_weight="1"
         android:id="@+id/ly_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        style="@style/line_thin" />
     <RadioGroup
+        android:background="#fefefe"
         android:id="@+id/rg_main"
         android:gravity="center"
         android:layout_gravity="bottom"
@@ -16,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <RadioButton
+            android:checked="true"
             android:id="@+id/rb_first"
             android:button="@null"
             android:padding="3dp"

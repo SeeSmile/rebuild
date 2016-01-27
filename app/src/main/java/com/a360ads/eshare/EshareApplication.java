@@ -2,14 +2,12 @@ package com.a360ads.eshare;
 
 import android.app.Activity;
 import android.app.Application;
-
-import com.a360ads.eshare.data.EshareSharedPreferences;
-import com.a360ads.eshare.data.PublicParamHelper;
-import com.a360ads.eshare.data.PublicParams;
 import com.a360ads.eshare.entitys.ConfigEntity;
-
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * 说明：享e下Application
@@ -21,9 +19,9 @@ public class EshareApplication extends Application {
     private List<Activity> activityList = new LinkedList<>();
     private static EshareApplication instance;
     private ConfigEntity mConfigEntity;
-    private PublicParams mPublicParams;
+    private Map<String, String> mPublicParams;
 
-    public PublicParams getmPublicParams() {
+    public Map<String, String> getmPublicParams() {
         return mPublicParams;
     }
 
@@ -66,6 +64,13 @@ public class EshareApplication extends Application {
     }
 
     public void initData() {
-        mPublicParams = new PublicParams(new PublicParamHelper(getApplicationContext()));
+        ShareSDK.initSDK(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
+
+    public void initPublicParams() {
+
+    }
+
 }

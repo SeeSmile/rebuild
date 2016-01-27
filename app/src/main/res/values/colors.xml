@@ -20,4 +20,7 @@
     <!--获取验证码-->
     <color name="btn_getcode_normal">#E7E7E7</color>
     <color name="btn_getcode_press">#AEAEAE</color>
+    <!--签到按钮-->
+    <color name="btn_sign_normal">#F49B16</color>
+    <color name="btn_sign_press">#B5B5B5</color>
 </resources>

@@ -13,9 +13,11 @@ public class BaseEntity{
 
     public String code;
     public String msg;
+    public String info;
 
     public static BaseEntity parseEntity(JSONObject json) {
         BaseEntity entity = new Gson().fromJson(json.toString(), BaseEntity.class);
+        entity.info = json.optString("data");
         return entity;
     }
 }

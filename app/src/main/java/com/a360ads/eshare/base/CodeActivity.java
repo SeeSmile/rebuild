@@ -13,6 +13,9 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 说明：
  * Created by FuPei
@@ -67,7 +70,7 @@ public abstract class CodeActivity extends BaseActivity implements EcodeHelper {
      * 连接服务器判断手机号码是否合法
      */
     private void judgePhoneByServer() {
-        RequestParams params = new RequestParams();
+        Map<String, String> params = new HashMap<>();
         params.put("onphone", getEtPhone().getText().toString());
         params.put("type", getCodeType());
         EwebUtil.getInstance().doSafePost(Constant.URL_JUDGE_PHONE, params, new ApiListener.JsonRequest() {

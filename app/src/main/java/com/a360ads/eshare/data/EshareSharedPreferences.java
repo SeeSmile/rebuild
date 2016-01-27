@@ -99,7 +99,7 @@ public class EshareSharedPreferences {
         try {
             appInfo = mContext.getPackageManager().getApplicationInfo(mContext.getPackageName(),
                     PackageManager.GET_META_DATA);
-            String msg = appInfo.metaData.getString("UMENG_CHANNEL");
+            String msg = appInfo.metaData.getString("UMENG_CHANNEL_VALUE");
             if(msg == null) {
                 Elog.i("msg为null");
             } else {

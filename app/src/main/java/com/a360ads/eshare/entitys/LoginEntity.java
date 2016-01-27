@@ -16,7 +16,7 @@ import org.json.JSONObject;
  * Created by FuPei
  * on 2016/1/22 at 18:05
  */
-public class LoginEntity extends BaseEntity {
+public class LoginEntity {
 
     /**
      * uid : 93363
@@ -527,30 +527,7 @@ public class LoginEntity extends BaseEntity {
         return on_pwd;
     }
 
-    public static LoginEntity parseEntity(JSONObject json) {
-        BaseEntity baseEntity = BaseEntity.parseEntity(json);
-        LoginEntity entity = new Gson().fromJson(json.optString("data"), LoginEntity.class);
-        if(entity == null) {
-            entity = new LoginEntity();
-        }
-        entity.code = baseEntity.code;
-        entity.msg = baseEntity.msg;
-        return entity;
-    }
-
-    /**
-     * 判断登陆结果
-     * @param act 上下文
-     * @return true，成功； false，失败
-     */
-    public boolean judgeLoginResult(BaseActivity act) {
-        if(code.equals(ConstantCode.CODE_ERR_PWD) || code.equals(ConstantCode.CODE_NO_USER)) {
-            act.toast("用户名或秘密错误!");
-        } else if(code.equals(ConstantCode.CODE_SUCCESS)) {
-            return true;
-        } else {
-            act.toast("登陆发生未知错误!");
-        }
-        return false;
+    public static LoginEntity parseEntity(String jsontext) {
+        return new Gson().fromJson(jsontext, LoginEntity.class);
     }
 }

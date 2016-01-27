@@ -67,6 +67,6 @@ public class PublicParamHelper implements PublicParams.PublicParamsInterFace {
 
     @Override
     public String getPublic_uid() {
-        return "uiduiduid";
+        return "93363";
     }
 }

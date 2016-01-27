@@ -2,6 +2,7 @@ package com.a360ads.eshare.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,16 +40,18 @@ public class ToolbarView extends LinearLayout {
 
     public ToolbarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        initView();
-//        initListener();
+        initView(context);
+        initListener();
     }
 
-    private void initView() {
-        tv_back = (TextView) findViewById(R.id.tv_back);
-        iv_back = (ImageView) findViewById(R.id.iv_back);
-        iv_icon = (ImageView) findViewById(R.id.iv_icon);
-        ly_back = (LinearLayout) findViewById(R.id.ly_back);
-        setStyle(STYLE_DEFAULT);
+    private void initView(Context context) {
+        setOrientation(HORIZONTAL);
+        tv_back = new TextView(context);
+        iv_back = new ImageView(context);
+        iv_icon = new ImageView(context);
+        ly_back = new LinearLayout(context);
+        addView(tv_back);
+        setStyle(STYLE_TEXT_BACK);
     }
 
     private void initListener() {

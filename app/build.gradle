@@ -19,12 +19,49 @@ android {
         }
     }
 
+    sourceSets.main {
+        jniLibs.srcDirs = ['jniLibs']  // <-- Set your folder here!
+        assert true
+    }
+
     productFlavors {
         cdligon {
             manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "10"]
         }
+        xinan {
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "11"]
+        }
+        appstore {
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "appstore"]
+        }
+        basulongmen{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "12"]
+        }
+        appstory360{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "13"]
+        }
+        tencent{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "14"]
+        }
+        baidu_helper{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "15"]
+        }
+        helper91{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "16"]
+        }
+        androidstory{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "17"]
+        }
+        xiaomi{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "18"]
+        }
+        weixingongzong{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "19"]
+        }
+        wandoujia{
+            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "20"]
+        }
     }
-
 }
 
 dependencies {
@@ -32,4 +69,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.pnikosis:materialish-progress:1.7'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile project(':pulltorefresh')
+    compile project(':eshare-calendar')
 }

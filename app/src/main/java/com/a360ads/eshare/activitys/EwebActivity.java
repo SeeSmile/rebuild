@@ -2,6 +2,8 @@ package com.a360ads.eshare.activitys;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+
 import com.a360ads.eshare.R;
 import com.a360ads.eshare.base.BaseActivity;
 import com.a360ads.eshare.utils.Elog;
@@ -32,6 +34,13 @@ public class EwebActivity extends BaseActivity {
 
     private void initView() {
         setContentView(R.layout.activity_baseweb);
+        setTitleStyle(STYLE_BOTH_TB);
+        setOnbackclick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         wv_main = (WebView) findViewById(R.id.wbv_main);
     }
 

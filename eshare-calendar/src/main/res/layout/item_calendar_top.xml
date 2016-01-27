@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:src="@mipmap/calendar_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="8dp"
+        android:text="2015-01-25"
+        android:id="@+id/top_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:visibility="gone"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"
+        android:gravity="right"
+        android:layout_weight="1"
+        android:text="提醒签到"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:visibility="gone"
+        android:button="@drawable/selector_calendar_cb"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/top_cb_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
