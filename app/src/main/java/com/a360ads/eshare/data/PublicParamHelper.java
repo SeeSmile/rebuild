@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.a360ads.eshare.EshareApplication;
+
 /**
  * 说明：
  * note：
@@ -67,6 +69,6 @@ public class PublicParamHelper implements PublicParams.PublicParamsInterFace {
 
     @Override
     public String getPublic_uid() {
-        return "93363";
+        return EshareApplication.getInstance().getUserInfo().getUid();
     }
 }

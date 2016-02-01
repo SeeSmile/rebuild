@@ -48,7 +48,13 @@ public class EwebUtil {
         }
     }
 
-    public void doGet(String url, final RequestParams params,final ApiListener listener) {
+    /**
+     * 发送正常的get请求
+     * @param url
+     * @param params
+     * @param listener
+     */
+    public void doGetNormal(String url, final RequestParams params,final ApiListener listener) {
         mClient.get(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -59,13 +65,37 @@ public class EwebUtil {
                     if (TextUtils.isEmpty(info)) {
                         listener.onFail();
                     } else {
-                        if (params == null) {
-                            Elog.i("未加密:" + info);
-                            listener.onSuccess(info);
-                        } else {
-                            Elog.i("加密:" + info);
+                        listener.onSuccess(info);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                listener.onFail();
+            }
+
+        });
+    }
+
+    private void doGet(String url, final RequestParams params,final ApiListener listener) {
+        mClient.get(url, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (null == responseBody) {
+                    listener.onFail();
+                } else {
+                    String info = new String(responseBody);
+                    if (TextUtils.isEmpty(info)) {
+                        listener.onFail();
+                    } else {
+//                        if (params == null) {
+//                            Elog.i("未加密:" + info);
+//                            listener.onSuccess(info);
+//                        } else {
+//                            Elog.i("加密:" + info);
                             listener.onSuccess(desToText(info));
-                        }
+//                        }
 
                     }
                 }
@@ -82,8 +112,8 @@ public class EwebUtil {
     public void doSafeGet(String url, Map<String, String> map_params, ApiListener listener) {
         Map<String, String> map = new HashMap<>();
         map.putAll(map_params);
-        if(EshareApplication.getInstance().getmPublicParams() != null) {
-            map.putAll(EshareApplication.getInstance().getmPublicParams());
+        if(EshareApplication.getInstance().getPublicParams() != null) {
+            map.putAll(EshareApplication.getInstance().getPublicParams());
         }
         mParams = new RequestParams();
         mParams = jsonToParams( new JSONObject(map));
@@ -94,8 +124,8 @@ public class EwebUtil {
         Map<String, String> map = new HashMap<>();
         map.putAll(map_params);
         //是否存在公共参数
-        if(EshareApplication.getInstance().getmPublicParams() != null) {
-            map.putAll(EshareApplication.getInstance().getmPublicParams());
+        if(EshareApplication.getInstance().getPublicParams() != null) {
+            map.putAll(EshareApplication.getInstance().getPublicParams());
         }
         JSONObject json = new JSONObject(map);
         mParams = new RequestParams();

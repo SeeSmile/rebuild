@@ -24,8 +24,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".EshareApplication"
@@ -79,6 +79,10 @@
         <!--消息中心-->
         <activity android:name=".activitys.MessageActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".activitys.ForecastActivity"
+            android:screenOrientation="portrait"
+            />
 
         <!--微信回调接口，设置可被另一个app调用-->
         <activity android:name=".wxapi.WXEntryActivity"

@@ -20,4 +20,9 @@ public class BaseEntity{
         entity.info = json.optString("data");
         return entity;
     }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
+    }
 }

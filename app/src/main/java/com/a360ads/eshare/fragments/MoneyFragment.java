@@ -34,7 +34,7 @@ public class MoneyFragment extends BaseFragment {
      * 获取金额详情
      */
     private void getMoney() {
-        EwebUtil.getInstance().doGet(Constant.URL_USER_BALANCE, null, new ApiListener() {
+        EwebUtil.getInstance().doGetNormal(Constant.URL_USER_BALANCE, null, new ApiListener() {
             @Override
             public void onSuccess(String result) {
                 Elog.i("onSuccess :" + result);

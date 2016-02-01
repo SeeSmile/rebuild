@@ -10,7 +10,7 @@ import com.a360ads.eshare.R;
 import com.a360ads.eshare.activitys.LoginActivity;
 import com.a360ads.eshare.base.BaseActivity;
 import com.a360ads.eshare.base.BaseFragment;
-import com.a360ads.eshare.data.EshareSharedPreferences;
+import com.a360ads.eshare.data.ESharedPreferences;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -58,7 +58,7 @@ public class GuideFragment extends BaseFragment {
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).goActivity(LoginActivity.class);
                     getActivity().finish();
-                    EshareSharedPreferences shared = new EshareSharedPreferences(getActivity());
+                    ESharedPreferences shared = new ESharedPreferences(getActivity());
                     shared.setHaveOnceLoad();
                 }
             });

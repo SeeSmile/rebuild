@@ -2,7 +2,7 @@ package com.a360ads.eshare.activitys;
 
 import android.os.Bundle;
 import com.a360ads.eshare.base.BaseActivity;
-import com.a360ads.eshare.data.EshareSharedPreferences;
+import com.a360ads.eshare.data.ESharedPreferences;
 import com.a360ads.eshare.utils.Elog;
 
 /**
@@ -15,7 +15,7 @@ public class FirstActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EshareSharedPreferences shared = new EshareSharedPreferences(FirstActivity.this);
+        ESharedPreferences shared = new ESharedPreferences(FirstActivity.this);
         Class<?> toClass;
         //是否第一次使用
         if(!shared.isOnceLoad()) {
@@ -23,7 +23,7 @@ public class FirstActivity extends BaseActivity {
             toClass = GuideActivity.class;
         } else {
             //是否有广告要加载
-            if(shared.getValueByKey(EshareSharedPreferences.KEY_AD) != null) {
+            if(shared.getValueByKey(ESharedPreferences.KEY_AD) != null) {
                 Elog.i(islog, "弹出广告");
                 toClass = AdActivity.class;
             } else {

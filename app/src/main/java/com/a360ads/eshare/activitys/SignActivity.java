@@ -1,37 +1,28 @@
 package com.a360ads.eshare.activitys;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.a360ads.eshare.EshareApplication;
 import com.a360ads.eshare.R;
 import com.a360ads.eshare.base.BaseActivity;
+import com.a360ads.eshare.data.Constant;
 import com.a360ads.eshare.interfaces.ApiListener;
+import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
-import com.loopj.android.http.RequestParams;
 import com.seesmile.demos.ecalendar.ECalendarView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import butterknife.InjectView;
 
 /**
- * 说明：
+ * 说明：签到界面
  * Created by FuPei
  * on 2016/1/25 at 14:19
  */
 public class SignActivity extends BaseActivity {
 
+    private final boolean canlog = true;
     @InjectView(R.id.sign_calendar)
     public ECalendarView cv;
     @InjectView(R.id.sign_tv_sign)
@@ -48,16 +39,19 @@ public class SignActivity extends BaseActivity {
     }
 
     private void getSignData() {
-        RequestParams params = new RequestParams();
-        EwebUtil.getInstance().doSafeGet("", null, new ApiListener() {
+        Map<String, String> map = new HashMap<>();
+        String uid = EshareApplication.getInstance().getUserInfo().getUid();
+        map.put("uid", uid);
+        Elog.i(canlog, "uid = " + uid);
+        EwebUtil.getInstance().doSafePost(Constant.URL_USER_SIGN, map, new ApiListener() {
             @Override
             public void onSuccess(String result) {
-
+                Elog.i(canlog, "onSuccess:" + result);
             }
 
             @Override
             public void onFail() {
-
+                Elog.i(canlog, "onFail:");
             }
         });
     }
@@ -69,6 +63,7 @@ public class SignActivity extends BaseActivity {
                 finish();
             }
         });
+
     }
 
     private void initView() {

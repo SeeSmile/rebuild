@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity {
         frg_money = new MoneyFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.ly_main, frg_first).commit();
+        Elog.i("main --> uid = " + EshareApplication.getInstance().getUserInfo().getUid());
     }
 
     private void initListener() {

@@ -8,9 +8,35 @@ package com.a360ads.eshare.data;
 public class Constant {
 
     /**
+     * 加密key
+     */
+    public static final String DES_KEY = "ooCZc5DIoVpUrsJ7JKiJFKb5OZmLw2Ob";
+
+    /**
+     * 微信ID
+     */
+    public static final String APP_ID = "wx2d5039f859b5a469";
+
+    /**
+     * 微信SECRET
+     */
+    public static final String SECRET = "5b36a017aa903def68fbf5a3d8f99325";
+
+    /**
+     * 微信获取token
+     */
+    public static final String URL_WEIXIN_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token";
+
+    /**
+     * 获取微信用户信息
+     */
+    public static final String URL_WEIXIN_INFO = "https://api.weixin.qq.com/sns/userinfo";
+
+    /**
      * 获取服务器各种接口的信息
      */
     public static final String SERVER_URL_CONFIG = "http://t.360netnews.com/config.php";
+
     //服务器配置
     public static final String SERVER_TWO_DEBUG = "http://192.168.0.111:9012/api.php/Cmd/";
     public static final String SERVER_TWO_OFFICIAL = "http://www.xiangexia.com/api.php/Cmd/";
@@ -29,19 +55,25 @@ public class Constant {
     public static final String URL_JUDGE_PHONE = SERVER_ONE + "UserIsPhone";
 
     /**
-     * 个人端用户登录
+     * 个人端手机登录
      */
     public static final String URL_USER_LOGIN = SERVER_ONE + "UserLogin";
 
     public static final String URL_USER_BALANCE = SERVER_TWO + "getUserBalance";
 
     /**
-     * 加密key
+     * 获取指定列表信息
      */
-    public static final String DES_KEY = "ooCZc5DIoVpUrsJ7JKiJFKb5OZmLw2Ob";
+    public static final String URL_PROJECT_LIST = SERVER_TWO + "getProjectList";
 
     /**
-     * 微信ID
+     * 个人端微信登陆
      */
-    public static final String APP_ID = "wx2d5039f859b5a469";
+    public static final String URL_LOGIN_WX = SERVER_TWO + "login";
+
+    /**
+     * 获取用户签到
+     */
+    public static final String URL_USER_SIGN = SERVER_ONE + "UserSignin";
+
 }

@@ -33,7 +33,6 @@ public class BaseActivity extends AppCompatActivity {
     public final int STYLE_BOTH_ALL = 3;
     public final int STYLE_BOTH_TI = 4;
 
-
     private EloadDialog mDialog;
     private boolean isDialogShowing;
     private TextView tv_title;

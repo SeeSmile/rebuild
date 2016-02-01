@@ -13,7 +13,7 @@ import com.a360ads.eshare.utils.Elog;
  * Created by FuPei
  * on 2016/1/19 at 9:49
  */
-public class EshareSharedPreferences {
+public class ESharedPreferences {
 
     /**
      * 是否加载了一次导航界面
@@ -21,6 +21,8 @@ public class EshareSharedPreferences {
     public static final String KEY_ONCE = "once";
     public static final String KEY_AD = "ad";
     public static final String KEY_CHANNEL = "channel";
+    public static final String KEY_UID = "uid";
+    public static final String KEY_TOKEN = "token";
 
     private final String SP_USER = "user";
 
@@ -29,7 +31,7 @@ public class EshareSharedPreferences {
     private Context mContext;
     private final boolean islog = false;
 
-    public EshareSharedPreferences(Context context) {
+    public ESharedPreferences(Context context) {
         mContext = context;
         mSPferences = context.getSharedPreferences(SP_USER, context.MODE_PRIVATE);
         mEditor = mSPferences.edit();

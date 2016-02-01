@@ -1,7 +1,12 @@
 package com.a360ads.eshare.activitys;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,20 +20,26 @@ import com.a360ads.eshare.base.BaseActivity;
 import com.a360ads.eshare.base.BaseEntity;
 import com.a360ads.eshare.data.Constant;
 import com.a360ads.eshare.data.ConstantCode;
+import com.a360ads.eshare.data.ESharedPreferences;
 import com.a360ads.eshare.entitys.ConfigEntity;
+import com.a360ads.eshare.entitys.UserEntity;
+import com.a360ads.eshare.entitys.WXUserEntity;
 import com.a360ads.eshare.interfaces.ApiListener;
 import com.a360ads.eshare.utils.EToastUtil;
 import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
+import com.a360ads.eshare.wxapi.WXEntryActivity;
+import com.google.gson.Gson;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.SendAuth;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * 说明：登陆界面
@@ -66,6 +77,29 @@ public class LoginActivity extends BaseActivity {
         setTitleStyle(STYLE_ONLY_TITLE);
         setTitle("登陆");
         initData();
+        registerLoginBro();
+    }
+
+    /**
+     * 注册微信登陆广播
+     */
+    private void registerLoginBro() {
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String code = intent.getStringExtra(WXEntryActivity.KEY_LOGIN);
+                if(code != null) {
+                    if(code.equals(WXEntryActivity.CODE_LOGIN_FAIL)) {
+                        toast("登陆失败");
+                    } else if(code.equals(WXEntryActivity.CODE_LOGIN_SUCCESS)){
+                        loginWxByServer();
+                    }
+                }
+            }
+        };
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WXEntryActivity.BRO_LOGIN);
+        registerReceiver(receiver, filter);
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register, R.id.iv_login_wx, R.id.tv_forget, R.id.tv_service,
@@ -135,10 +169,10 @@ public class LoginActivity extends BaseActivity {
      * 设置全局url配置信息
      */
     public void setUrlConfig(final int tag) {
-        EwebUtil.getInstance().doGet(Constant.SERVER_URL_CONFIG, null, new ApiListener() {
+        EwebUtil.getInstance().doGetNormal(Constant.SERVER_URL_CONFIG, null, new ApiListener() {
             @Override
             public void onSuccess(String result) {
-                EshareApplication.getInstance().setmConfigEntity(ConfigEntity.parseEntity(result));
+                EshareApplication.getInstance().setConfigEntity(ConfigEntity.parseEntity(result));
                 showWebInfo(tag);
             }
 
@@ -154,29 +188,28 @@ public class LoginActivity extends BaseActivity {
      * 调用微信登陆
      */
     private void loginByWx() {
-        Elog.i("loginWX");
-        Platform wechat= ShareSDK.getPlatform(LoginActivity.this, Wechat.NAME);
-        wechat.setPlatformActionListener(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Elog.i("onComplete");
+        IWXAPI api = WXAPIFactory.createWXAPI(LoginActivity.this, Constant.APP_ID);
+        //判断是否安装了微信客户端
+        if(api.isWXAppInstalled()) {
+            showDialog("跳转中...");
+            //保存发送微信登陆的状态码，以供识别
+            String state = System.currentTimeMillis() + "login";
+            EshareApplication.getInstance().setState_login(state);
+            SendAuth.Req req = new SendAuth.Req();
+            req.scope = "snsapi_userinfo";
+            req.state = state;
+            if(api.sendReq(req)) {
+                dismissDialog();
             }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                Elog.i("onError");
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-                Elog.i("onCancel");
-            }
-        });
-        wechat.authorize();
-//        SendAuth.Req req = new SendAuth.Req();
-//        req.scope = "snsapi_userinfo";
-//        req.state = "wechat_sdk_demo";
-//        EshareApplication.getInstance().getApi(LoginActivity.this).sendReq(req);
+        } else {
+            new AlertDialog.Builder(LoginActivity.this).setTitle("提示").setMessage("请先安装微信客户端")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create().show();
+        }
     }
 
     private void login() {
@@ -194,8 +227,13 @@ public class LoginActivity extends BaseActivity {
                 public void onJsonLoad(JSONObject json) {
                     dismissDialog();
                     BaseEntity entity = BaseEntity.parseEntity(json);
-                    if(judgeLoginResult(LoginActivity.this, entity.code)) {
-                        finish();
+                    if (judgeLoginResult(LoginActivity.this, entity.code)) {
+                        UserEntity user = new Gson().fromJson(json.toString(), UserEntity.class);
+                        EshareApplication.getInstance().setUserInfo(user);
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("data", user);
+//                        finish();
                         goActivity(MainActivity.class);
                     }
                 }
@@ -225,4 +263,37 @@ public class LoginActivity extends BaseActivity {
         return false;
     }
 
+    /**
+     * 用户微信授权登陆成功后，调用此方法进行微信登陆
+     */
+    private void loginWxByServer() {
+//        showDialog("登陆中...");
+        Map<String, String> map = new HashMap<>();
+        WXUserEntity entity = EshareApplication.getInstance().getWxUserinfo();
+        map.put("platform","android");
+        map.put("weixin", entity.getUnionid());
+        map.put("imageurl", entity.getHeadimgurl());
+        map.put("username", entity.getNickname());
+        map.put("source", new ESharedPreferences(LoginActivity.this).getValueByKey(ESharedPreferences.KEY_CHANNEL));
+        EwebUtil.getInstance().doSafePost(Constant.URL_LOGIN_WX, map, new ApiListener() {
+            @Override
+            public void onSuccess(String result) {
+                Elog.i("调用服务器微信登陆成功:\n" + result);
+                try {
+                    JSONObject json = new JSONObject(result);
+                    UserEntity entity = new Gson().fromJson(json.optString("data"), UserEntity.class);
+                    Elog.i("保存了用户的信息:\n" + entity.toString());
+                    EshareApplication.getInstance().setUserInfo(entity);
+                    goActivity(MainActivity.class);
+                } catch (JSONException e) {
+                    Elog.i("微信登陆错误");
+                }
+            }
+
+            @Override
+            public void onFail() {
+                Elog.i("调用服务器微信登陆失败了");
+            }
+        });
+    }
 }

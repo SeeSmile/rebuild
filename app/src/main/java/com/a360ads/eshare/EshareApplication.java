@@ -2,7 +2,15 @@ package com.a360ads.eshare;
 
 import android.app.Activity;
 import android.app.Application;
+
+import com.a360ads.eshare.data.Constant;
 import com.a360ads.eshare.entitys.ConfigEntity;
+import com.a360ads.eshare.entitys.UserEntity;
+import com.a360ads.eshare.entitys.WXEntity;
+import com.a360ads.eshare.entitys.WXUserEntity;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,13 +24,66 @@ import cn.sharesdk.framework.ShareSDK;
  */
 public class EshareApplication extends Application {
 
+    /**
+     * 界面链式数据
+     */
     private List<Activity> activityList = new LinkedList<>();
+    /**
+     * 单例实例
+     */
     private static EshareApplication instance;
-    private ConfigEntity mConfigEntity;
-    private Map<String, String> mPublicParams;
+    /**
+     * 接口默认的配置信息
+     */
+    private ConfigEntity configEntity;
+    /**
+     * 公共的参数
+     */
+    private Map<String, String> publicParams;
+    /**
+     * 微信登陆识别码
+     */
+    private String state_login;
 
-    public Map<String, String> getmPublicParams() {
-        return mPublicParams;
+    private WXUserEntity wxUserinfo;
+
+    private UserEntity userInfo;
+
+    public WXUserEntity getWxUserinfo() {
+        return wxUserinfo;
+    }
+
+    public void setWxUserinfo(WXUserEntity wxUserinfo) {
+        this.wxUserinfo = wxUserinfo;
+    }
+
+    public Map<String, String> getPublicParams() {
+        return publicParams;
+    }
+
+    //数据的保存和读取
+    public String getState_login() {
+        return state_login;
+    }
+
+    public void setState_login(String state_login) {
+        this.state_login = state_login;
+    }
+
+    public ConfigEntity getmConfigEntity() {
+        return configEntity;
+    }
+
+    public void setConfigEntity(ConfigEntity configEntity) {
+        this.configEntity = configEntity;
+    }
+
+    public UserEntity getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserEntity userInfo) {
+        this.userInfo = userInfo;
     }
 
     @Override
@@ -55,22 +116,24 @@ public class EshareApplication extends Application {
         System.exit(0);
     }
 
-    public ConfigEntity getmConfigEntity() {
-        return mConfigEntity;
-    }
-
-    public void setmConfigEntity(ConfigEntity mConfigEntity) {
-        this.mConfigEntity = mConfigEntity;
-    }
-
     public void initData() {
         ShareSDK.initSDK(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        IWXAPI api = WXAPIFactory.createWXAPI(this, Constant.APP_ID, true);
+        api.registerApp(Constant.APP_ID);
+    }
+
+    public IWXAPI createWXApi() {
+        IWXAPI api = WXAPIFactory.createWXAPI(this, Constant.APP_ID, true);
+        api.registerApp(Constant.APP_ID);
+        return api;
     }
 
     public void initPublicParams() {
 
     }
+
+
 
 }
