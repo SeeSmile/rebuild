@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.a360ads.eshare.EshareApplication;
 import com.a360ads.eshare.R;
-import com.a360ads.eshare.activitys.ForecastActivity;
+import com.a360ads.eshare.activity.ForecastActivity;
 import com.a360ads.eshare.base.BaseEntity;
 import com.a360ads.eshare.base.BaseFragment;
 import com.a360ads.eshare.data.Constant;
@@ -18,7 +18,6 @@ import com.a360ads.eshare.data.ConstantCode;
 import com.a360ads.eshare.interfaces.ApiListener;
 import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
-import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.json.JSONException;
@@ -27,7 +26,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -37,6 +35,8 @@ import butterknife.InjectView;
  * on 2016/1/23 at 14:39
  */
 public class FirstFragment extends BaseFragment {
+
+    private final boolean islog = true;
 
     @InjectView(R.id.lv_data)
     public PullToRefreshListView lv_data;
@@ -67,27 +67,26 @@ public class FirstFragment extends BaseFragment {
      * 获取互动接口的数据
      */
     private void getListData() {
+        Elog.i(islog, "getListData()");
         Map<String, String> params = new HashMap<>();
         params.put("uid", EshareApplication.getInstance().getUserInfo().getUid());
         params.put("token", EshareApplication.getInstance().getUserInfo().getToken());
         params.put("type", ConstantCode.TYPE_SELF_START);
         params.put("page", currentPage + "");
-        EwebUtil.getInstance().doSafeGet(Constant.URL_PROJECT_LIST, params, new ApiListener() {
+        EwebUtil.getInstance().doSafeGet(Constant.URL_PROJECT_LIST, params, new ApiListener.JsonRequest() {
             @Override
-            public void onSuccess(String result) {
-                Elog.i("onSuccess:" + result);
-                BaseEntity baseEntity = new Gson().fromJson(result, BaseEntity.class);
+            public void onJsonLoad(JSONObject json) {
+                BaseEntity baseEntity = BaseEntity.parseEntity(json);
                 String code = baseEntity.code;
                 //没有预测的数据
                 if("3".equals(code)) {
-                    Elog.i("code = " + baseEntity.info);
                     tv_forecast.setVisibility(View.VISIBLE);
                     tv_forecast.setText(baseEntity.info);
                     tv_forecast.setOnClickListener(null);
                 } else if("1".equals(code)) {
                     //如果数据是json格式，那说明此数据是互动的数据
                     try {
-                        JSONObject json = new JSONObject(baseEntity.info);
+                        new JSONObject(baseEntity.info);
                         tv_forecast.setVisibility(View.GONE);
                     } catch (JSONException e) {
                         //不是互动的数据，是预测的字符串
@@ -105,8 +104,8 @@ public class FirstFragment extends BaseFragment {
             }
 
             @Override
-            public void onFail() {
-                Elog.i("onFail:");
+            public void onJsonFail() {
+                toast("获取信息失败");
             }
         });
     }

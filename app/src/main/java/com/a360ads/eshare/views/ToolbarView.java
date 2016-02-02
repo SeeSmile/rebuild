@@ -2,12 +2,11 @@ package com.a360ads.eshare.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.a360ads.eshare.R;
+
 import com.a360ads.eshare.interfaces.ToolbarListener;
 
 /**

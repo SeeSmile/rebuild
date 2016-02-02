@@ -1,6 +1,5 @@
 package com.a360ads.eshare.base;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -9,7 +8,6 @@ import com.a360ads.eshare.interfaces.ApiListener;
 import com.a360ads.eshare.interfaces.EcodeHelper;
 import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 

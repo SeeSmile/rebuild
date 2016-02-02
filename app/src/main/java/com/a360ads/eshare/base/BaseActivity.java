@@ -3,8 +3,6 @@ package com.a360ads.eshare.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,9 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.a360ads.eshare.EshareApplication;
 import com.a360ads.eshare.R;
-import com.a360ads.eshare.dialogs.EloadDialog;
+import com.a360ads.eshare.dialog.EloadDialog;
+import com.a360ads.eshare.utils.Elog;
 import com.a360ads.eshare.utils.EwebUtil;
-import com.a360ads.eshare.views.ToolbarView;
 
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
@@ -42,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Elog.i(getLocalClassName());
         initBaseData();
     }
 

@@ -72,8 +72,18 @@ public class Constant {
     public static final String URL_LOGIN_WX = SERVER_TWO + "login";
 
     /**
-     * 获取用户签到
+     * 设置用户签到
      */
     public static final String URL_USER_SIGN = SERVER_ONE + "UserSignin";
+
+    /**
+     * 获取用户签到信息
+     */
+    public static final String URL_SIGN_INFO = SERVER_ONE + "SigninInfos";
+
+    /**
+     * 获取消息列表
+     */
+    public static final String URL_MSG_LIST = SERVER_ONE + "MessageList";
 
 }

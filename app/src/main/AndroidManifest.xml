@@ -35,7 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <!--启动页面-->
-        <activity android:name=".activitys.FirstActivity"
+        <activity android:name=".activity.FirstActivity"
             android:screenOrientation="portrait"
             >
             <intent-filter>
@@ -45,44 +45,49 @@
         </activity>
 
         <!--广告界面-->
-        <activity android:name=".activitys.AdActivity"
+        <activity android:name=".activity.AdActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
 
         <!--登录界面-->
-        <activity android:name=".activitys.LoginActivity"
+        <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"/>
 
         <!--新手向导界面-->
-        <activity android:name=".activitys.GuideActivity"
+        <activity android:name=".activity.GuideActivity"
             android:screenOrientation="portrait"/>
 
         <!--基础的webActivity-->
-        <activity android:name=".activitys.EwebActivity"
+        <activity android:name=".activity.EwebActivity"
             android:screenOrientation="portrait"/>
 
         <!--修改密码-->
-        <activity android:name=".activitys.AlterPwdActivity"
+        <activity android:name=".activity.AlterPwdActivity"
             android:screenOrientation="portrait"/>
 
         <!--个人注册-->
-        <activity android:name=".activitys.RegisterActivity"
+        <activity android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"/>
 
         <!--主界面-->
-        <activity android:name=".activitys.MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait"/>
 
         <!--签到界面-->
-        <activity android:name=".activitys.SignActivity"
+        <activity android:name=".activity.SignActivity"
             android:screenOrientation="portrait"/>
 
         <!--消息中心-->
-        <activity android:name=".activitys.MessageActivity"
+        <activity android:name=".activity.MessageActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activitys.ForecastActivity"
-            android:screenOrientation="portrait"
-            />
+        <!--预测界面-->
+        <activity android:name=".activity.ForecastActivity"
+            android:screenOrientation="portrait" />
+
+        <!--设置界面-->
+        <activity android:name=".activity.SetActivity"
+            android:screenOrientation="portrait" />
 
         <!--微信回调接口，设置可被另一个app调用-->
         <activity android:name=".wxapi.WXEntryActivity"
@@ -181,6 +186,7 @@
         <!-- 极光推送 -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="4ca792317e58305bacd8d5d0" />
+
         <!-- 友盟统计 -->
         <meta-data android:value="56a73012e0f55a32cd0006a1" android:name="UMENG_APPKEY"/>
         <meta-data android:name="UMENG_CHANNEL" android:value="${ESHARE_CHANNEL_VALUE}"/>

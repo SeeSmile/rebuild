@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.a360ads.eshare.R;
-import com.a360ads.eshare.activitys.LoginActivity;
+import com.a360ads.eshare.activity.LoginActivity;
 import com.a360ads.eshare.base.BaseActivity;
 import com.a360ads.eshare.base.BaseFragment;
 import com.a360ads.eshare.data.ESharedPreferences;

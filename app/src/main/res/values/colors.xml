@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--一般界面背景-->
+    <color name="bg_activity">#FAFAFA</color>
     <!--标题背景-->
     <color name="bg_title">#3D4859</color>
     <color name="orange">#ff8307</color>
@@ -23,4 +25,7 @@
     <!--签到按钮-->
     <color name="btn_sign_normal">#F49B16</color>
     <color name="btn_sign_press">#B5B5B5</color>
+    <!--一般背景按钮-->
+    <color name="bg_ly_press">#E7E7E7</color>
+    <color name="bg_ly_normal">#FFFFFF</color>
 </resources>
